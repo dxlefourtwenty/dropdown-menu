@@ -1,12 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Title Here</title>
     <script src="./index.js" defer></script>
-</head>
-<body>
-    <div id="test" class="text-3xl font-extrabold underline">Hello There, if this is styled then tailwind build has worked</div>
-</body>
+  </head>
+  <body>
+    <div class="flex justify-center items-center flex-col">
+      <div class="font-bold text-4xl pt-25 pb-5">Choice of Meal</div>
+      <button
+        id="dropdown-button"
+        class="w-55 flex border-2 rounded-md border-gray-600 p-2 cursor-pointer hover:outline-3 hover:outline-red-400 flex-1 items-center justify-center"
+      >
+        <span id="button-text-content" class="mr-3">Pick your favorite food</span>
+        <svg
+          class="-mr-1 ml-45 h-5 w-5 mt-1 absolute"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      <div id="dropdown-menu" 
+        class="max-h-0 border-none overflow-hidden transition-all duration-300 ease-in-out border-black flex-1 text-center w-48"
+      >
+        <div class="border-1 hover:outline-2 cursor-pointer">Cheeseburger</div>
+        <div class="border-1 hover:outline-2 cursor-pointer">Pizza</div>
+        <div class="border-1 hover:outline-2 cursor-pointer">Chicken Alfredo</div>
+        <div class="border-1 hover:outline-2 cursor-pointer">Cheeseburger</div>
+      </div>
+    </div>
+
+    <script>
+      const button = document.getElementById('dropdown-button');
+      const menu = document.getElementById('dropdown-menu');
+      const options = menu.childNodes;
+
+      button.addEventListener('click', () => {
+        toggleFade();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!button.contains(e.target) && !menu.contains(e.target)) {
+          toggleFade();
+        }
+      });
+
+      options.forEach((option) => {
+        option.addEventListener('click', () => {
+          document.getElementById("button-text-content").textContent = option.textContent;
+          toggleFade();
+        });
+      });
+
+      function toggleFade () {
+        menu.classList.toggle('max-h-0');
+        menu.classList.toggle('border-none');
+        menu.classList.toggle('max-h-60');
+        menu.classList.toggle('border-1');
+      }
+    </script>
+  </body>
 </html>
